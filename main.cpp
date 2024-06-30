@@ -1,14 +1,16 @@
 /**
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                                                                                         *
- *   Name: Exam Grading (Chapter 7 Challenge 10 Variant)                                   *
+ *   Name: Exam Grading (Chapter 7 Challenge 10 Variant; Improved Version)                 *
  *                                                                                         *
  *   Purpose:                                                                              *
  *   Receives 20 answers to the driver license exam & stores them into a vector of chars.  *
  *   Then grades those answers by comparing them with the correct ones, and finally        *
  *   displays the results, including: the total number of correctly answered questions,    *
- *   the total number of incorrectly answered questions, and a list showing the question   *
- *   numbers of the incorrectly answered questions.                                        *
+ *   the total number of incorrectly answered questions, and a list showing all the        *
+ *   answers, detailing which ones are right and which ones are wrong. Its an improved     *
+ *   and refactored version, removing all the unnecessary fat, while adding extra          *
+ *   useful information in the results displayed to the user.                              *
  *                                                                                         *
  *   More Details:                                                                         *
  *   https://github.com/reymillenium/20240629_1827_challenge0710_variant_exam_grading      *
@@ -41,6 +43,8 @@ using std::endl;
 using std::cin;
 using std::fixed;
 using std::setprecision;
+using std::setw;
+using std::setfill;
 using std::string;
 using std::to_string;
 using std::stringstream;
@@ -217,8 +221,6 @@ string getLeastRainfallMonth(const vector<string> &, double [], int);
 
 string getMostRainfallMonth(const vector<string> &, double [], int);
 
-void displayResults(double, double, double);
-
 // class MonthlyRainLog {
 // public:
 //     string monthName;
@@ -243,7 +245,12 @@ bool validateAnswer(char);
 
 vector<char> getDriverAnswers(int);
 
+// Counts the correct answers. Grades the user's answers comparing them with the correct ones
 int gradeExam(const vector<char> &, const vector<char> &);
+
+void displayResults(const vector<char> &, const vector<char> &);
+
+void printDetailedResultsTable(const vector<char> &, const vector<char> &, int);
 
 
 // Custom Function Defintions
@@ -260,16 +267,20 @@ vector<char> loadCorrect() {
 
 bool validateAnswer(const char input) {
     vector<char> allowedAnswers {'A', 'B', 'C', 'D'};
-    return count(allowedAnswers.begin(), allowedAnswers.end(), toupper(input)) > 0;
+    return count(allowedAnswers.begin(), allowedAnswers.end(), input) > 0;
 }
 
 vector<char> getDriverAnswers(const int vectorLength) {
     vector<char> vector(vectorLength);
 
+    cout << endl;
+    cout << "Welcome to Exam Grader Pro." << endl;
+    cout << endl;
+
     for (int i = 0; i < vectorLength; i++) {
         bool isInvalidAnswer;
         do {
-            vector[i] = getAlphaChar("Please type the answer for the " + ordinalFromNumber(i + 1) + " question (A, B, C, or D)");
+            vector[i] = toupper(getAlphaChar("Please type the answer for the " + ordinalFromNumber(i + 1) + " question (A, B, C, or D)"));
             isInvalidAnswer = !validateAnswer(vector[i]);
             if (isInvalidAnswer) cout << "The only allowed answers are: A, B, C or D. Try again." << endl;
         } while (isInvalidAnswer);
@@ -278,7 +289,45 @@ vector<char> getDriverAnswers(const int vectorLength) {
     return vector;
 }
 
+// Counts the correct answers. Grades the user's answers comparing them with the correct ones
 int gradeExam(const vector<char> &vCorrectAnswers, const vector<char> &vDriverAnswers) {
+    // Compututing the cumulative inner equality of the range in those two same size vectors (when items are equal, then equal_to() returns 1, and then it's accumulated via plus<>() )
+    return std::inner_product(
+        vCorrectAnswers.begin(), vCorrectAnswers.end(), vDriverAnswers.begin(), 0, std::plus<>(), std::equal_to<>()
+    );
+}
+
+void displayResults(const vector<char> &vCorrectAnswers, const vector<char> &vDriverAnswers) {
+    int numCorrect = 0; // Number or correct answers
+    numCorrect = gradeExam(vCorrectAnswers, vDriverAnswers); // Grades the user's answers comparing them with the correct ones
+    const bool passedtheTest = numCorrect >= 15; // If the user passed the test
+
+    cout << endl;
+    cout << "Driver License Exam Official Results" << endl;
+    cout << "Final Score: " << numCorrect << "/20 points." << endl;
+    cout << "As a result: " << (passedtheTest ? "Congratulations! You passed " : "I'm sorry! You failed ") << "the Driver License Exam." << endl;
+    cout << endl;
+    cout << "Detailed Results: " << endl;
+    printDetailedResultsTable(vCorrectAnswers, vDriverAnswers, numCorrect);
+    cout << "Thank you for using our services. Goodbye!" << endl;
+};
+
+void printDetailedResultsTable(const vector<char> &vCorrectAnswers, const vector<char> &vDriverAnswers, const int correctAnswersAmount) {
+    cout << "-----------------------------------------------------" << endl;
+    cout << "| Question # | Your answer | Correct Answer | Score |" << endl;
+    cout << "-----------------------------------------------------" << endl;
+
+    const size_t length = vCorrectAnswers.size();
+    for (int i = 0; i < length; i++) {
+        const char userAnswer = vDriverAnswers[i];
+        const char properAnswer = vCorrectAnswers[i];
+
+        cout << "|     " << setfill(' ') << setw(2) << (i + 1) << "     |      " << userAnswer << "      |        " << properAnswer << "       |   " << (userAnswer == properAnswer) << "   |" << endl;
+        cout << "-----------------------------------------------------" << endl;
+    }
+
+    cout << "| Final Amount of Points:                   | " << setfill(' ') << setw(3) << correctAnswersAmount << "   |" << endl;
+    cout << "-----------------------------------------------------" << endl;
 }
 
 // Main Function
@@ -286,24 +335,12 @@ int main() {
     constexpr int QUESTIONS_AMOUNT = 20;
     vector<char> vCorrectAnswers(QUESTIONS_AMOUNT);
     vector<char> vDriverAnswers(QUESTIONS_AMOUNT);
-    vector<char> vIncorrectAnsers;
 
-    vCorrectAnswers = loadCorrect();
-    vDriverAnswers = getDriverAnswers(QUESTIONS_AMOUNT);
-    // int numCorrect = gradeExam(const vector<char>&,const vector<char>&, vector<char>&);
+    vCorrectAnswers = loadCorrect(); // Gets all the correct answers
+    vDriverAnswers = getDriverAnswers(QUESTIONS_AMOUNT); // Gets the user's answers
 
-    // const int integerNnumber = getInteger("Enter a number", -10, 100, true);
-    // print("integerNnumber = ");
-    // printLine(integerNnumber);
-
-    // const char character = getAlphaChar("Type a character (A, B, C or D )");
-    // print("character = ");
-    // printLine(character);
-
-    // const double doubleNumber = getDouble("Enter a number", -10, 100, true, "Invalid putput. Please try again.", {-999, 999.0});
-    // cout << fixed << setprecision(5);
-    // cout << "doubleNumber = ";
-    // cout << doubleNumber << endl;
+    // Displays the Improved Results:
+    displayResults(vCorrectAnswers, vDriverAnswers);
 
     return 0;
 }
@@ -838,11 +875,4 @@ string getMostRainfallMonth(const vector<string> &months, double rainfalls[], co
     const int targetIndex = targetPointer - rainfalls;
     string mostRainfallMonth = months[targetIndex];
     return mostRainfallMonth;
-}
-
-void displayResults(const double average, const double lowerAmount, const double higherAmount) {
-    cout << endl;
-    cout << "The average amount of food eaten per day by the whole family of monkeys is " << humanizeDouble(average) << " lbs." << endl;
-    cout << "The least amount of food eaten during the week by any one monkey is " << humanizeDouble(lowerAmount) << " lbs." << endl;
-    cout << "The greatest amount of food eaten during the week by any one monkey is " << humanizeDouble(higherAmount) << " lbs." << endl;
 }
