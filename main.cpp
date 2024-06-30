@@ -1,37 +1,24 @@
 /**
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *                                                       *
- *       Created by: Reinier Garcia Ramos                *
- *       reymillenium@gmail.com                          *
- *                                                       *
- *       https://www.linkedin.com/in/reiniergarcia       *
- *       https://github.com/reymillenium                 *
- *       https://www.reiniergarcia.dev                   *
- *                                                       *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- **/
-
-/**
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                                                                     *
- *   Name: 07-Arrays-intro                                             *
+ *   Name: Exam Grading                                                                *
  *                                                                     *
  *   Purpose:                                                          *
  *   Receives 10 integers provided by the user from the console,       *
  *   and stores them in an array. And then based on them, it           *
  *   calculates the sum, the average and the largest element.          *
- *                                                                     *
- *   More Details:                                                     *
- *   https://github.com/reymillenium/20240621_0127_arrays_intro        *
- *                                                                     *
- *                                                                     *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *                                                                                     *
+ *   More Details:                                                                     *
+ *   https://github.com/reymillenium/20240629_1827_challenge0710_variant_exam_grading  *
+ *                                                                                     *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  **/
 
 #include <iostream>
 #include <string>  // for string, to_string, etc
 #include <cmath> // for sqrt, sin, pow
 #include <limits> // For SHRT_MAX, SHRT_MIN, etc
+#include <climits> // For SHRT_MAX, SHRT_MIN, etc
 #include <iomanip> // for setprecision, setw, fixed
 #include<array>  // for array
 #include<random> // for random_device
@@ -59,6 +46,7 @@ using std::regex;
 using std::regex_match;
 using std::stoi;
 using std::stod;
+using std::isalpha;
 
 // Prints a given value, of almost any kind, once in the terminal
 template<typename T>
@@ -91,6 +79,12 @@ int getInteger(const string &, int, int, bool = false, const string & = "Invalid
 
 // Receives and validates a double number (or the equivalent of an integer) from the console
 double getDouble(const string &, double, double, bool = false, const string & = "Invalid input. Please try again.", const vector<double> & = {});
+
+// Determines if a given string is a single valid char
+bool containsSingleChar(const string &input);
+
+// Receives and validates a char from the console
+char getAlphaChar(const string &, const string & = "Invalid input. Please try again.");
 
 // Gets a string with or without spaces, from the terminal, as a response of a given question
 string getStringFromMessage(const string &);
@@ -236,17 +230,75 @@ void displayResults(double, double, double);
 //     }
 // };
 
+// Custom Function Prototypes
+
+vector<char> loadCorrect();
+
+bool validateAnswer(char);
+
+vector<char> getDriverAnswers(int);
+
+int gradeExam(const vector<char> &, const vector<char> &);
+
+
+// Custom Function Defintions
+
+
+vector<char> loadCorrect() {
+    return {
+        'A', 'D', 'B', 'B', 'C',
+        'B', 'A', 'B', 'C', 'D',
+        'A', 'C', 'D', 'B', 'D',
+        'C', 'C', 'A', 'D', 'B'
+    };
+}
+
+bool validateAnswer(const char input) {
+    vector<char> allowedAnswers {'A', 'B', 'C', 'D'};
+    return count(allowedAnswers.begin(), allowedAnswers.end(), toupper(input)) > 0;
+}
+
+vector<char> getDriverAnswers(const int vectorLength) {
+    vector<char> vector(vectorLength);
+
+    for (int i = 0; i < vectorLength; i++) {
+        bool isInvalidAnswer;
+        do {
+            vector[i] = getAlphaChar("Please type the answer for the " + ordinalFromNumber(i + 1) + " question (A, B, C, or D)");
+            isInvalidAnswer = !validateAnswer(vector[i]);
+            if (isInvalidAnswer) cout << "The only allowed answers are: A, B, C or D. Try again." << endl;
+        } while (isInvalidAnswer);
+    }
+
+    return vector;
+}
+
+int gradeExam(const vector<char> &vCorrectAnswers, const vector<char> &vDriverAnswers) {
+}
+
 // Main Function
 int main() {
+    constexpr int QUESTIONS_AMOUNT = 20;
+    vector<char> vCorrectAnswers(QUESTIONS_AMOUNT);
+    vector<char> vDriverAnswers(QUESTIONS_AMOUNT);
+    vector<char> vIncorrectAnsers;
+
+    vCorrectAnswers = loadCorrect();
+    vDriverAnswers = getDriverAnswers(QUESTIONS_AMOUNT);
+    // int numCorrect = gradeExam(const vector<char>&,const vector<char>&, vector<char>&);
+
     // const int integerNnumber = getInteger("Enter a number", -10, 100, true);
     // print("integerNnumber = ");
     // printLine(integerNnumber);
 
-    const double doubleNumber = getDouble("Enter a number", -10, 100, true, "Invalid putput. Please try again.", {-999, 999.0});
+    // const char character = getAlphaChar("Type a character (A, B, C or D )");
+    // print("character = ");
+    // printLine(character);
 
-    cout << fixed << setprecision(5);
-    cout << "doubleNumber = ";
-    cout << doubleNumber << endl;
+    // const double doubleNumber = getDouble("Enter a number", -10, 100, true, "Invalid putput. Please try again.", {-999, 999.0});
+    // cout << fixed << setprecision(5);
+    // cout << "doubleNumber = ";
+    // cout << doubleNumber << endl;
 
     return 0;
 }
@@ -297,7 +349,8 @@ bool isInteger(const string &input) {
 
 // Determines if a given string is a valid floating point number, using a regular expression
 bool isFloatingPoint(const string &input) {
-    const regex pattern("^[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?$");
+    // const regex pattern("^[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?$");
+    const regex pattern(R"(^[+-]?[0-9]+(.[0-9]+)?([eE][+-]?[0-9]+)?$)");
     return regex_match(input, pattern);
 }
 
@@ -354,6 +407,36 @@ double getDouble(const string &message, const double minValue, const double maxV
     } while (keepAsking);
 
     return number;
+}
+
+bool containsSingleChar(const string &input) {
+    if (input.empty() || input.length() > 1) return false;
+    return true;
+}
+
+char getAlphaChar(const string &message, const string &errorMessage) {
+    string characterAsString; // Value typed by the user, that can be a char or not
+    char character = 'A'; // Char convertion (if possible) of the value typed by the user
+    bool isNotAlphaCharacter = true; // If the character is alphabetic
+
+    do {
+        cout << message << ": ";
+        getline(cin, characterAsString);
+
+        if (!containsSingleChar(characterAsString)) {
+            cout << "That's not a single character. Try again." << endl;
+            continue; // There is no point in keep validating any further, as it's not even a valid char
+        }
+
+        // const char *characterPointer = characterAsString.data(); // Only valid on C++ 17 or newer
+        const char *characterPointer = characterAsString.c_str();
+        character = characterPointer[0];
+
+        isNotAlphaCharacter = !isalpha(character);
+        if (isNotAlphaCharacter) cout << errorMessage << endl;
+    } while (isNotAlphaCharacter);
+
+    return character;
 }
 
 // Gets a string with or without spaces, from the terminal, as a response of a given question
