@@ -1,17 +1,22 @@
 /**
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *                                                                     *
- *   Name: Exam Grading                                                                *
- *                                                                     *
- *   Purpose:                                                          *
- *   Receives 10 integers provided by the user from the console,       *
- *   and stores them in an array. And then based on them, it           *
- *   calculates the sum, the average and the largest element.          *
- *                                                                                     *
- *   More Details:                                                                     *
- *   https://github.com/reymillenium/20240629_1827_challenge0710_variant_exam_grading  *
- *                                                                                     *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *                                                                                         *
+ *   Name: Exam Grading (Chapter 7 Challenge 10 Variant)                                   *
+ *                                                                                         *
+ *   Purpose:                                                                              *
+ *   Receives 20 answers to the driver license exam & stores them into a vector of chars.  *
+ *   Then grades those answers by comparing them with the correct ones, and finally        *
+ *   displays the results, including: the total number of correctly answered questions,    *
+ *   the total number of incorrectly answered questions, and a list showing the question   *
+ *   numbers of the incorrectly answered questions.                                        *
+ *                                                                                         *
+ *   More Details:                                                                         *
+ *   https://github.com/reymillenium/20240629_1827_challenge0710_variant_exam_grading      *
+ *                                                                                         *
+ *   Required Statement:                                                                   *
+ *   "I did not use chatGPT or any outside source to assist me with the code."             *
+ *                                                                                         *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  **/
 
 #include <iostream>
