@@ -8,9 +8,9 @@
  *   Then grades those answers by comparing them with the correct ones, and finally        *
  *   displays the results, including: the total number of correctly answered questions,    *
  *   the total number of incorrectly answered questions, and a list showing all the        *
- *   answers, detailing which ones are right and which ones are wrong. Its an improved     *
- *   and refactored version, removing all the unnecessary fat, while adding extra          *
- *   useful information in the results displayed to the user.                              *
+ *   answers, detailing which ones are right and which ones are wrong. It's an improved    *
+ *   and refactored version, that adds extra and useful information in the results         *
+ *   displayed to the user.                                                                *
  *                                                                                         *
  *   More Details:                                                                         *
  *   https://github.com/reymillenium/20240629_1827_challenge0710_variant_exam_grading      *
