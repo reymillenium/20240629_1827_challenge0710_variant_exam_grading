@@ -23,21 +23,12 @@
 
 
 #include <iostream>
-#include <string>  // for string, to_string, etc
-#include <cmath> // for sqrt, sin, pow
-#include <limits> // For SHRT_MAX, SHRT_MIN, etc
-#include <climits> // For SHRT_MAX, SHRT_MIN, etc
-#include <iomanip> // for setprecision, setw, fixed
-#include<array>  // for array
-#include<random> // for random_device
-#include <cstdlib> // For rand and srand
-#include <ctime>   // For the time function
-#include <sstream> // for stringstream (used in humanizeInteger, humanizeDouble, etc)
-#include <vector> // to use vectors
-#include <fstream> // For ifstream, ofstrea, fstream
-#include <numeric> // For accumulate, transform_reduce, (in the vectors)
-#include <algorithm> // For max_element, min_element, find, transform (to use in vectors), or for max()
-#include <regex> // For regex, regex_match
+#include <string>
+#include <iomanip>
+#include <vector>
+#include <numeric>
+#include <algorithm>
+#include <regex>
 
 
 using std::cout;
@@ -49,22 +40,16 @@ using std::setw;
 using std::setfill;
 using std::string;
 using std::to_string;
-using std::stringstream;
-using std::accumulate;
 using std::vector;
-using std::find;
-using std::regex;
-using std::regex_match;
-using std::stoi;
-using std::stod;
 using std::isalpha;
+using std::inner_product;
 
 
 // UTILITY FUNCTIONS PROTOTYPES
 
 
 // Determines if a given string is a single valid char
-bool containsSingleChar(const string &input);
+bool containsSingleChar(const string &);
 
 // Receives and validates a char from the console
 char getAlphaChar(const string &, const string & = "Invalid input. Please try again.");
@@ -76,10 +61,13 @@ string ordinalFromNumber(long long int);
 // CUSTOM FUNCTIONS PROTOTYPES
 
 
+// Returns all the proper answers for the driver license exam
 vector<char> loadCorrect();
 
+// Validates and returns if the given answer is among the allowed or not
 bool validateAnswer(char);
 
+// Gets all the answers from the driver
 vector<char> getDriverAnswers(int);
 
 // Counts the correct answers. Grades the user's answers comparing them with the correct ones
@@ -127,7 +115,7 @@ char getAlphaChar(const string &message, const string &errorMessage) {
 
         if (!containsSingleChar(characterAsString)) {
             cout << "That's not a single character. Try again." << endl;
-            continue; // There is no point in keep validating any further, as it's not even a valid char
+            continue; // There is no point in keep validating any further, as it's not even a valid single char (still as a string at this point)
         }
 
         // const char *characterPointer = characterAsString.data(); // Only valid on C++ 17 or newer
@@ -176,6 +164,7 @@ string ordinalFromNumber(const long long int number) {
 // CUSTOM FUNCTIONS DEFINITION
 
 
+// Returns all the proper answers for the driver license exam
 vector<char> loadCorrect() {
     return {
         'A', 'D', 'B', 'B', 'C',
@@ -185,11 +174,13 @@ vector<char> loadCorrect() {
     };
 }
 
+// Validates and returns if the given answer is among the allowed or not
 bool validateAnswer(const char input) {
     vector<char> allowedAnswers {'A', 'B', 'C', 'D'};
     return count(allowedAnswers.begin(), allowedAnswers.end(), input) > 0;
 }
 
+// Gets all the answers from the driver
 vector<char> getDriverAnswers(const int vectorLength) {
     vector<char> vector(vectorLength);
 
