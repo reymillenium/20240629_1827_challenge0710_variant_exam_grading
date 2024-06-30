@@ -95,7 +95,84 @@ And in order to run that a.out file, we must execute on the terminal:
 ```terminal
 reinier@reinier % ./your_prefered_executable_file_name
 
+Welcome to Exam Grader Pro.
 
+Please type the answer for the 1st question (A, B, C, or D): a
+Please type the answer for the 2nd question (A, B, C, or D): d
+Please type the answer for the 3rd question (A, B, C, or D): b
+Please type the answer for the 4th question (A, B, C, or D): as
+That's not a single character. Try again.
+Please type the answer for the 4th question (A, B, C, or D): 3
+Invalid input. Please try again.
+Please type the answer for the 4th question (A, B, C, or D): a
+Please type the answer for the 5th question (A, B, C, or D): a
+Please type the answer for the 6th question (A, B, C, or D): a
+Please type the answer for the 7th question (A, B, C, or D): a
+Please type the answer for the 8th question (A, B, C, or D): b
+Please type the answer for the 9th question (A, B, C, or D): c
+Please type the answer for the 10th question (A, B, C, or D): d
+Please type the answer for the 11th question (A, B, C, or D): a
+Please type the answer for the 12th question (A, B, C, or D): c
+Please type the answer for the 13rd question (A, B, C, or D): d
+Please type the answer for the 14th question (A, B, C, or D): b
+Please type the answer for the 15th question (A, B, C, or D): d
+Please type the answer for the 16th question (A, B, C, or D): c
+Please type the answer for the 17th question (A, B, C, or D): c
+Please type the answer for the 18th question (A, B, C, or D): a
+Please type the answer for the 19th question (A, B, C, or D): d
+Please type the answer for the 20th question (A, B, C, or D): b
+
+Driver License Exam Official Results
+Final Score: 17/20 points.
+As a result: Congratulations! You passed the Driver License Exam.
+
+Detailed Results: 
+-----------------------------------------------------
+| Question # | Your answer | Correct Answer | Score |
+-----------------------------------------------------
+|      1     |      A      |        A       |   1   |
+-----------------------------------------------------
+|      2     |      D      |        D       |   1   |
+-----------------------------------------------------
+|      3     |      B      |        B       |   1   |
+-----------------------------------------------------
+|      4     |      A      |        B       |   0   |
+-----------------------------------------------------
+|      5     |      A      |        C       |   0   |
+-----------------------------------------------------
+|      6     |      A      |        B       |   0   |
+-----------------------------------------------------
+|      7     |      A      |        A       |   1   |
+-----------------------------------------------------
+|      8     |      B      |        B       |   1   |
+-----------------------------------------------------
+|      9     |      C      |        C       |   1   |
+-----------------------------------------------------
+|     10     |      D      |        D       |   1   |
+-----------------------------------------------------
+|     11     |      A      |        A       |   1   |
+-----------------------------------------------------
+|     12     |      C      |        C       |   1   |
+-----------------------------------------------------
+|     13     |      D      |        D       |   1   |
+-----------------------------------------------------
+|     14     |      B      |        B       |   1   |
+-----------------------------------------------------
+|     15     |      D      |        D       |   1   |
+-----------------------------------------------------
+|     16     |      C      |        C       |   1   |
+-----------------------------------------------------
+|     17     |      C      |        C       |   1   |
+-----------------------------------------------------
+|     18     |      A      |        A       |   1   |
+-----------------------------------------------------
+|     19     |      D      |        D       |   1   |
+-----------------------------------------------------
+|     20     |      B      |        B       |   1   |
+-----------------------------------------------------
+| Final Amount of Points:                   |  17   |
+-----------------------------------------------------
+Thank you for using our services. Goodbye!
   
 Process finished with exit code 0
 reinier@reinier % 
