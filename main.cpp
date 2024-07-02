@@ -43,6 +43,8 @@ using std::to_string;
 using std::vector;
 using std::isalpha;
 using std::inner_product;
+using std::plus;
+using std::equal_to;
 
 
 // UTILITY FUNCTIONS PROTOTYPES
@@ -203,8 +205,8 @@ vector<char> getDriverAnswers(const int vectorLength) {
 // Counts the correct answers. Grades the user's answers comparing them with the correct ones
 int gradeExam(const vector<char> &vCorrectAnswers, const vector<char> &vDriverAnswers) {
     // Compututing the cumulative inner equality of the range in those two same size vectors (when items are equal, then equal_to() returns 1, and then it's accumulated via plus<>() )
-    return std::inner_product(
-        vCorrectAnswers.begin(), vCorrectAnswers.end(), vDriverAnswers.begin(), 0, std::plus<>(), std::equal_to<>()
+    return inner_product(
+        vCorrectAnswers.begin(), vCorrectAnswers.end(), vDriverAnswers.begin(), 0, plus<>(), equal_to<>()
     );
 }
 
