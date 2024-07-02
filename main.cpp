@@ -226,7 +226,7 @@ void displayResults(const vector<char> &vCorrectAnswers, const vector<char> &vDr
     cout << "Detailed Results: " << endl;
     printDetailedResultsTable(vCorrectAnswers, vDriverAnswers, numCorrect);
     cout << "Thank you for using our services. Goodbye!" << endl;
-};
+}
 
 
 // Prints a useful & detailed table, containing every answer and comparing it with the correct one.
