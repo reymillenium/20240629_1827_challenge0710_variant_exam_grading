@@ -1,7 +1,10 @@
 /**
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *                                                                                         *
- *   Name: Exam Grading (Chapter 7 Challenge 10 Variant; Improved Version)                 *
+ *   Name: Reinier Garcia Ramos                                                            *
+ *                                                                                         *
+ *   Program Title/Name:                                                                   *
+ *   Exam Grading (Chapter 7 Challenge 10 Variant; Improved Version)                       *
  *                                                                                         *
  *   Purpose:                                                                              *
  *   Receives 20 answers to the driver license exam & stores them into a vector of chars.  *
@@ -84,9 +87,9 @@ void printDetailedResultsTable(const vector<char> &, const vector<char> &, int);
 
 // Main Function
 int main() {
-    constexpr int QUESTIONS_AMOUNT = 20;
-    vector<char> vCorrectAnswers(QUESTIONS_AMOUNT);
-    vector<char> vDriverAnswers(QUESTIONS_AMOUNT);
+    constexpr int QUESTIONS_AMOUNT = 20; // Amount of question in the driver license exam
+    vector<char> vCorrectAnswers(QUESTIONS_AMOUNT); // Stores the correct answers for the driver license exam
+    vector<char> vDriverAnswers(QUESTIONS_AMOUNT); // Stores the user's answers for the driver license exam
 
     vCorrectAnswers = loadCorrect(); // Gets all the correct answers
     vDriverAnswers = getDriverAnswers(QUESTIONS_AMOUNT); // Gets the user's answers
@@ -178,7 +181,7 @@ vector<char> loadCorrect() {
 
 // Validates and returns if the given answer is among the allowed or not
 bool validateAnswer(const char input) {
-    vector<char> allowedAnswers {'A', 'B', 'C', 'D'};
+    constexpr vector<char> allowedAnswers {'A', 'B', 'C', 'D'};
     return count(allowedAnswers.begin(), allowedAnswers.end(), input) > 0;
 }
 
