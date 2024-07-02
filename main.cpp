@@ -216,12 +216,12 @@ int gradeExam(const vector<char> &vCorrectAnswers, const vector<char> &vDriverAn
 void displayResults(const vector<char> &vCorrectAnswers, const vector<char> &vDriverAnswers) {
     int numCorrect = 0; // Number or correct answers
     numCorrect = gradeExam(vCorrectAnswers, vDriverAnswers); // Grades the user's answers comparing them with the correct ones
-    const bool passedtheTest = numCorrect >= 15; // If the user passed the test
+    const bool passedTheTest = numCorrect >= 15; // If the user passed the test
 
     cout << endl;
     cout << "Driver License Exam Official Results" << endl;
     cout << "Final Score: " << numCorrect << "/20 points." << endl;
-    cout << "As a result: " << (passedtheTest ? "Congratulations! You passed " : "I'm sorry! You failed ") << "the Driver License Exam." << endl;
+    cout << "As a result: " << (passedTheTest ? "Congratulations! You passed " : "I'm sorry! You failed ") << "the Driver License Exam." << endl;
     cout << endl;
     cout << "Detailed Results: " << endl;
     printDetailedResultsTable(vCorrectAnswers, vDriverAnswers, numCorrect);
