@@ -31,7 +31,6 @@
 #include <vector>
 #include <numeric>
 #include <algorithm>
-#include <regex>
 
 
 using std::cout;
@@ -181,7 +180,7 @@ vector<char> loadCorrect() {
 
 // Validates and returns if the given answer is among the allowed or not
 bool validateAnswer(const char input) {
-    constexpr vector<char> allowedAnswers {'A', 'B', 'C', 'D'};
+    const vector<char> allowedAnswers {'A', 'B', 'C', 'D'};
     return count(allowedAnswers.begin(), allowedAnswers.end(), input) > 0;
 }
 
